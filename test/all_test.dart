@@ -76,7 +76,7 @@ Future main() async {
     test('should be bypassed in debug mode', () async {
       Angel angelDebug = new Angel();
       await angelDebug.configure(compiled_mustache(new Directory('./test/views')));
-      // TODO: Set `angelProd.isProduction` to false (see angel-dart/angel#46)
+      // TODO: Set `angelProd.isProduction` to false (see angel-dart/angel#46).
       
       await (new File('./test/views/caching/before.mustache')).copy('cache.mustache');
       var before = await angelDebug.viewGenerator('caching/cache');
@@ -90,7 +90,7 @@ Future main() async {
     test('should be used in production mode', () async {
         Angel angelProd = new Angel();
         await angelProd.configure(compiled_mustache(new Directory('./test/views')));
-        // TODO: Set `angelProd.isProduction` to true (see angel-dart/angel#46)
+        // TODO: Set `angelProd.isProduction` to true (see angel-dart/angel#46).
         
         await (new File('./test/views/caching/before.mustache')).copy('cache.mustache');
         var before = await angelProd.viewGenerator('caching/cache');
