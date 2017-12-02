@@ -8,17 +8,6 @@ fi
 
 ./scripts/install.sh
 
-if [[ $CI == true ]]; then
-  git clone "https://thislooksfun:$gh_token@github.com/thislooksfun/compiled_mustache.wiki.git"
-else
-  git clone "https://github.com/thislooksfun/compiled_mustache.wiki.git"
-fi
-grind doc_benchmark_wiki
-cd compiled_mustache.wiki
-git add -A
-git commit -m "Update Benchmarks"
-cd ..
-
 # If it already exists, clean it out
 if [ -d "deploy_staging" ]; then
   rm -rf "deploy_staging"
@@ -37,7 +26,7 @@ function cp_dep() {
 }
 
 # Folders
-cp_dep "benchmark"
+# cp_dep "benchmark"
 cp_dep "doc"
 cp_dep "example"
 cp_dep "lib"
@@ -73,6 +62,3 @@ fi
 
 # Final publish phase
 pub publish --force    # Force to bypass 'are you sure' check
-
-cd ../compiled_mustache.wiki
-git push origin master
