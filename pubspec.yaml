@@ -2,7 +2,7 @@ name: "angel_compiled_mustache"
 description: "Compiled Mustache view generator for Angel."
 author: "thislooksfun <thislooksfun@repbot.org>"
 homepage: "https://github.com/thislooksfun/angel_compiled_mustache"
-version: "0.1.0"
+version: "1.0.0-pre"
 dependencies:
   angel_framework: ">=1.0.0-dev < 2.0.0"
   compiled_mustache: "^1.0.1"
