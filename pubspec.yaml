@@ -1,13 +1,12 @@
-name: angel_compiled_mustache
-description: Compiled Mustache view generator for Angel.
-author: thislooksfun <thislooksfun@repbot.com>
-homepage: https://github.com/thislooksfun/angel_compiled_mustache
-version: 0.1.0
+name: "angel_compiled_mustache"
+description: "Compiled Mustache view generator for Angel."
+author: "thislooksfun <thislooksfun@repbot.org>"
+homepage: "https://github.com/thislooksfun/angel_compiled_mustache"
+version: "1.0.0"
 dependencies:
   angel_framework: ">=1.0.0-dev < 2.0.0"
-  compiled_mustache:
-    git: 'git@github.com:thislooksfun/compiled_mustache'
-    version:  "1.0.0-beta1"
+  compiled_mustache: ">=1.0.1 <2.0.0"
+  path: ">=1.5.0 <2.0.0"
 dev_dependencies:
-  http: ">= 0.11.3 < 0.12.0"
   test: ">= 0.12.13 < 0.13.0"
+  grinder: "^0.8.0"

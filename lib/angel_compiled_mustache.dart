@@ -1,3 +1,5 @@
+/// An Angel interface with [compiled_mustache]().
+
 library angel_compiled_mustache;
 
 import 'dart:async';
@@ -8,6 +10,7 @@ import 'package:path/path.dart' as path;
 
 part 'src/cache_controller.dart';
 
+/// Returns an [AngelConfigurer] that sets the app's [viewGenerator] to use mustache.
 compiled_mustache(Directory viewsDirectory,
     {String fileExtension: '.mustache', String layoutsPath: './layouts', String pagesPath: './pages', String partialsPath: './partials', String defaultLayout: 'main'}) {
   
@@ -26,8 +29,8 @@ compiled_mustache(Directory viewsDirectory,
       var layout = await cache.get_layout(cntxt['layout'] ?? defaultLayout, app);
       var page   = await cache.get_page(name, app);
       
-      cntxt['body'] = page.renderWithPartialsProvider(cntxt, partialProvider);
-      return layout.renderWithPartialsProvider(cntxt, partialProvider);
+      cntxt['body'] = page.renderWithPartialProvider(cntxt, partialProvider);
+      return layout.renderWithPartialProvider(cntxt, partialProvider);
     };
   };
 }

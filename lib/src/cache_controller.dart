@@ -29,27 +29,27 @@ class _CacheController {
   
   
   Future<CompiledTemplate> _get_cached(String name, Angel app, String type, {bool suppressError: false}) async {
-    if (app.isProduction) { // production node, cache
+    if (app.isProduction) { // Production node, cache.
       CompiledTemplate ct = cache['$type/$name'];
       if (ct == null) {
         ct = await _load_from_disk(type, name, suppressError);
         cache['$type/$name'] = ct;
       }
       return ct;
-    } else { // debug mode, always load from disk
+    } else { // Debug mode, always load from disk.
       return await _load_from_disk(type, name, suppressError);
     }
   }
   
   CompiledTemplate _get_cached_sync(String name, Angel app, String type, {bool suppressError: false}) {
-    if (app.isProduction) { // production node, cache
+    if (app.isProduction) { // Production node, cache.
       CompiledTemplate ct = cache['$type/$name'];
       if (ct == null) {
         ct = _load_from_disk_sync(type, name, suppressError);
         cache['$type/$name'] = ct;
       }
       return ct;
-    } else { // debug mode, always load from disk
+    } else { // Debug mode, always load from disk.
       return _load_from_disk_sync(type, name, suppressError);
     }
   }
