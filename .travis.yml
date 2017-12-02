@@ -27,3 +27,4 @@ deploy:
   on:
     branch: master
     dart: stable
+    env: ANGEL_ENV=production
