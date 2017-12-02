@@ -73,32 +73,32 @@ Future main() async {
   });
   
   group('cache', () {
-    test('should be bypassed in debug mode', () async {
-      Angel angelDebug = new Angel();
-      await angelDebug.configure(compiled_mustache(new Directory('./test/views')));
-      // TODO: Set `angelProd.isProduction` to false (see angel-dart/angel#46).
-      
-      await (new File('./test/views/caching/before.mustache')).copy('cache.mustache');
-      var before = await angelDebug.viewGenerator('caching/cache');
-      await (new File('./test/views/caching/after.mustache')).copy('cache.mustache');
-      var after = await angelDebug.viewGenerator('caching/cache');
-      
-      expect(before, equals('Before'));
-      expect(after,  equals('After'));
-    });
-    
-    test('should be used in production mode', () async {
-        Angel angelProd = new Angel();
-        await angelProd.configure(compiled_mustache(new Directory('./test/views')));
-        // TODO: Set `angelProd.isProduction` to true (see angel-dart/angel#46).
+    if (angel.isProduction) {
+      test('should be used in production mode', () async {
+          Angel angelProd = new Angel();
+          await angelProd.configure(compiled_mustache(new Directory('./test/views'), defaultLayout: 'raw'));
+          
+          await (new File('./test/views/pages/caching/before.mustache')).copy('./test/views/pages/caching/cache.mustache');
+          var before = await angelProd.viewGenerator('caching/cache');
+          await (new File('./test/views/pages/caching/after.mustache')).copy('./test/views/pages/caching/cache.mustache');
+          var after = await angelProd.viewGenerator('caching/cache');
+          
+          expect(before, equals('Before'));
+          expect(after,  equals('Before'));
+      });
+    } else {
+      test('should be bypassed in debug mode', () async {
+        Angel angelDebug = new Angel();
+        await angelDebug.configure(compiled_mustache(new Directory('./test/views'), defaultLayout: 'raw'));
         
-        await (new File('./test/views/caching/before.mustache')).copy('cache.mustache');
-        var before = await angelProd.viewGenerator('caching/cache');
-        await (new File('./test/views/caching/after.mustache')).copy('cache.mustache');
-        var after = await angelProd.viewGenerator('caching/cache');
+        await (new File('./test/views/pages/caching/before.mustache')).copy('./test/views/pages/caching/cache.mustache');
+        var before = await angelDebug.viewGenerator('caching/cache');
+        await (new File('./test/views/pages/caching/after.mustache')).copy('./test/views/pages/caching/cache.mustache');
+        var after = await angelDebug.viewGenerator('caching/cache');
         
         expect(before, equals('Before'));
-        expect(after,  equals('Before'));
-    });
-  }, skip: 'Not possible yet, see angel-dart/angel#46');
+        expect(after,  equals('After'));
+      });
+    }
+  });
 }

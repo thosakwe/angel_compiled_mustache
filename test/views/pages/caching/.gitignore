@@ -1,0 +1,3 @@
+# Ignore the 'cache.mustache' file as it will
+# be generated automatically during testing
+cache.mustache

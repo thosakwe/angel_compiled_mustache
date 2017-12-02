@@ -29,8 +29,8 @@ compiled_mustache(Directory viewsDirectory,
       var layout = await cache.get_layout(cntxt['layout'] ?? defaultLayout, app);
       var page   = await cache.get_page(name, app);
       
-      cntxt['body'] = page.renderWithPartialsProvider(cntxt, partialProvider);
-      return layout.renderWithPartialsProvider(cntxt, partialProvider);
+      cntxt['body'] = page.renderWithPartialProvider(cntxt, partialProvider);
+      return layout.renderWithPartialProvider(cntxt, partialProvider);
     };
   };
 }

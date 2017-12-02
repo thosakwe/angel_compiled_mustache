@@ -1,0 +1,29 @@
+language: dart
+
+# Setup build matrix
+dart:
+  - stable
+  - dev
+  - "1.24.2"
+env:
+  - ANGEL_ENV=debug
+  - ANGEL_ENV=production
+matrix:
+  fast_finish: true  #don't wait for builds that are allowed to fail before marking as a pass
+  allow_failures:
+    - dart: dev
+
+install:
+  - chmod +x scripts/install.sh
+  - scripts/install.sh
+
+script:
+  - scripts/test.sh
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: scripts/deploy.sh
+  on:
+    branch: master
+    dart: stable
