@@ -1,4 +1,4 @@
-/// An Angel interface with [compiled_mustache]().
+/// An Angel interface with [compiled_mustache](https://pub.dartlang.org/packages/compiled_mustache).
 
 library angel_compiled_mustache;
 
@@ -12,7 +12,8 @@ part 'src/cache_controller.dart';
 
 /// Returns an [AngelConfigurer] that sets the app's [viewGenerator] to use mustache.
 compiled_mustache(Directory viewsDirectory,
-    {String fileExtension: '.mustache', String layoutsPath: './layouts', String pagesPath: './pages', String partialsPath: './partials', String defaultLayout: 'main'}) {
+    {String fileExtension: '.mustache', String defaultLayout: 'main',
+     String layoutsPath: './layouts', String pagesPath: './pages', String partialsPath: './partials'}) {
   
   Directory layoutsDirectory  = new Directory(path.join(path.fromUri(viewsDirectory.uri), layoutsPath));
   Directory pagesDirectory    = new Directory(path.join(path.fromUri(viewsDirectory.uri), pagesPath));
