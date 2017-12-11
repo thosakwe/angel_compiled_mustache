@@ -6,59 +6,15 @@ else
   set -e
 fi
 
-./scripts/install.sh
-
-# If it already exists, clean it out
-if [ -d "deploy_staging" ]; then
-  rm -rf "deploy_staging"
+if [[ $TRAVIS_EVENT_TYPE != "push" ]]; then
+  echo "Build is not a push -- skipping!"
+  exit 0
 fi
 
-mkdir "deploy_staging"
-
-function cp_dep() {
-  if [ -e "$1" ]; then
-    if [ -d "$1" ]; then
-      cp -r "$1" "deploy_staging/$1"
-    else
-      cp "$1" "deploy_staging/"
-    fi
-  fi
-}
-
-# Folders
-# cp_dep "benchmark"
-cp_dep "doc"
-cp_dep "example"
-cp_dep "lib"
-cp_dep "test"
-
-# Files
-cp_dep "CHANGELOG.md"
-cp_dep "LICENSE"
-cp_dep "pubspec.yaml"
-cp_dep "README.md"
-
-cd "deploy_staging"
-
-rm -rf "doc/api"  # Don't upload api docs, those will be generated automatically
-
-pub publish --dry-run  # Dry run to ensure no errors / warnings
-
-mkdir -p .pub-cache
-
-if [[ $CI == true ]]; then
-# Setup Pub's authentication
-cat <<EOF > ~/.pub-cache/credentials.json
-{
-  "accessToken":"$accessToken",
-  "refreshToken":"$refreshToken",
-  "tokenEndpoint":"$tokenEndpoint",
-  "scopes":["$scopes"],
-  "expiration":$expiration
-}
-EOF
+if [[ $TRAVIS_BRANCH == "master" ]]; then
+  chmod +x scripts/deploy_pub.sh
+  scripts/deploy_pub.sh
+else
+  chmod +x scripts/deploy_pr.sh
+  scripts/deploy_pr.sh
 fi
-
-
-# Final publish phase
-pub publish --force    # Force to bypass 'are you sure' check
