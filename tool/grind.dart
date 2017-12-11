@@ -7,8 +7,8 @@ main(args) => grind(args);
 @Task()
 Future test() {
   var tr = new TestRunner();
-  tr.test(file: 'test/withDartIO.dart');
-  tr.test(file: 'test/withPackageFile.dart');
+  tr.test(files: 'test/withDartIO.dart');
+  tr.test(files: 'test/withPackageFile.dart');
 }
 
 @Task()
