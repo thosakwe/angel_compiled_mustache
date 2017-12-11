@@ -5,7 +5,11 @@ import 'package:grinder/grinder.dart';
 main(args) => grind(args);
 
 @Task()
-Future test() => new TestRunner().testAsync(files: ['test/withDartIO.dart', 'test/withPackageFile.dart']);
+Future test() {
+  var tr = new TestRunner();
+  tr.test(file: 'test/withDartIO.dart');
+  tr.test(file: 'test/withPackageFile.dart');
+}
 
 @Task()
 Future doc() async {
