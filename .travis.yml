@@ -25,6 +25,8 @@ deploy:
   provider: script
   script: scripts/deploy.sh
   on:
-    branch: master
+    branch:
+      - staging
+      - master
     dart: stable
     condition: $ANGEL_ENV = production
