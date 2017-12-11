@@ -9,4 +9,4 @@ echo "Creating PR with data:"
 echo "> $DATA"
 echo "> $URL"
 
-curl -u "$BOT_NAME:$BOT_PWD" -H "Content-Type: application/json" -X POST -d "$DATA" "$URL"
+curl -u "$BOT_NAME:$BOT_PWD" -H "Content-Type: application/json" -X POST -d "$DATA" "$URL" --fail
