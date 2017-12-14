@@ -6,7 +6,7 @@ import 'package:file/local.dart';
 Future main() async {
   Angel angel = new Angel();
   var fs = const LocalFileSystem();
-  await angel.configure(compiledMustache(fs.directory('views'), defaultLayout: 'home'));
+  await angel.configure(compiled_mustache(fs.directory('views'), defaultLayout: 'home'));
 
   // This will render the file 'views/pages/hello.mustache'
   // using the layout 'views/layouts/main.mustache'  (uses the specified layout)

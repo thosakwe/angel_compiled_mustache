@@ -12,7 +12,7 @@ Directory viewsDir = lfs.directory('test/views');
 
 Future main() async {
   Angel angel = new Angel();
-  await angel.configure(compiledMustache(viewsDir, defaultLayout: 'raw'));
+  await angel.configure(compiled_mustache(viewsDir, defaultLayout: 'raw'));
   
   group('renderer', () {
     test('can render templates', () async {
@@ -33,7 +33,7 @@ Future main() async {
   group('layouts', () {
     Angel angel = new Angel();
     setUp(() async {
-      await angel.configure(compiledMustache(viewsDir));
+      await angel.configure(compiled_mustache(viewsDir));
     });
     
     test('should use default if none is given', () async {
@@ -43,7 +43,7 @@ Future main() async {
     
     test('should respect user-set default layout', () async {
       Angel ang = new Angel();
-      await ang.configure(compiledMustache(viewsDir, defaultLayout: 'other'));
+      await ang.configure(compiled_mustache(viewsDir, defaultLayout: 'other'));
       var res = await ang.viewGenerator('hello', {'name': 'world'});
       expect(res, equals('Other: Hello, world!'));
     });
@@ -84,7 +84,7 @@ Future main() async {
     if (angel.isProduction) {
       test('should be used in production mode', () async {
           Angel angelProd = new Angel();
-          await angelProd.configure(compiledMustache(viewsDir, defaultLayout: 'raw'));
+          await angelProd.configure(compiled_mustache(viewsDir, defaultLayout: 'raw'));
           
           await lfs.file('$cachePath/before.mustache').copy('$cachePath/cache.mustache');
           var before = await angelProd.viewGenerator('caching/cache');
@@ -97,7 +97,7 @@ Future main() async {
     } else {
       test('should be bypassed in debug mode', () async {
         Angel angelDebug = new Angel();
-        await angelDebug.configure(compiledMustache(viewsDir, defaultLayout: 'raw'));
+        await angelDebug.configure(compiled_mustache(viewsDir, defaultLayout: 'raw'));
         
         await lfs.file('$cachePath/before.mustache').copy('$cachePath/cache.mustache');
         var before = await angelDebug.viewGenerator('caching/cache');

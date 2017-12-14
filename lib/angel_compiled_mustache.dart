@@ -13,7 +13,7 @@ import 'package:path/path.dart' as path;
 part 'src/cache_controller.dart';
 
 /// Returns an [AngelConfigurer] that sets the app's [viewGenerator] to use mustache.
-compiledMustache(Directory viewsDirectory,
+compiled_mustache(Directory viewsDirectory,
     {String fileExtension: '.mustache',
     String defaultLayout: 'main',
     String layoutsPath: './layouts',
