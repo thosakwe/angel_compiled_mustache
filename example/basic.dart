@@ -11,4 +11,5 @@ Future main() async {
   // using the layout 'views/layouts/main.mustache'
   // with the context of 'name' = 'world'
   var rendered = await angel.viewGenerator('hello', {'name': 'world'});
+  print(rendered);
 }

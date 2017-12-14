@@ -7,14 +7,10 @@ Future main() async {
   Angel angel = new Angel();
   var fs = const LocalFileSystem();
   await angel.configure(compiled_mustache(fs.directory('views'), defaultLayout: 'home'));
-  
-  // This will render the file 'views/pages/hello.mustache'
-  // using the layout 'views/layouts/home.mustache'  (uses the default)
-  // with the context of 'name' = 'world'
-  var rendered = await angel.viewGenerator('hello', {'name': 'world'});
-  
+
   // This will render the file 'views/pages/hello.mustache'
   // using the layout 'views/layouts/main.mustache'  (uses the specified layout)
   // with the context of 'name' = 'world'
   var rendered = await angel.viewGenerator('hello', {'layout': 'main', 'name': 'world'});
+  print(rendered);
 }
