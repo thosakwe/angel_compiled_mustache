@@ -109,6 +109,8 @@ class _CacheController {
       case 'page':    return _pagesDirectory.path;
       case 'partial': return _partialsDirectory.path;
     }
+
+    throw new ArgumentError();
   }
 }
 
