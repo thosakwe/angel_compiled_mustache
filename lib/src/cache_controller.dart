@@ -3,10 +3,10 @@ part of angel_compiled_mustache;
 class _CacheController {
   final String _fileExtension;
   
-  final pf.Directory _layoutsDirectory;
-  final pf.Directory _pagesDirectory;
-  final pf.Directory _partialsDirectory;
-  final pf.FileSystem _fileSystem;
+  final Directory _layoutsDirectory;
+  final Directory _pagesDirectory;
+  final Directory _partialsDirectory;
+  final FileSystem _fileSystem;
   
   Map<String, CompiledTemplate> cache = {};
   
@@ -62,14 +62,14 @@ class _CacheController {
     }
     
     String dirPath = _dirPathForType(type);
-    pf.File f = _fileSystem.file(path.join(dirPath, name));
+    File f = _fileSystem.file(path.join(dirPath, name));
     
     bool exists = await f.exists();
     if (!exists) {
       if (suppressError) {
         return null;
       } else {
-        throw new pf.FileSystemException('${_capitalize(type)} \'$name\' was not found.', f.path);
+        throw new FileSystemException('${_capitalize(type)} \'$name\' was not found.', f.path);
       }
     }
     
@@ -86,14 +86,14 @@ class _CacheController {
     }
     
     String dirPath = _dirPathForType(type);
-    pf.File f = _fileSystem.file(path.join(dirPath, name));
+    File f = _fileSystem.file(path.join(dirPath, name));
     
     bool exists = f.existsSync();
     if (!exists) {
       if (suppressError) {
         return null;
       } else {
-        throw new pf.FileSystemException('${_capitalize(type)} \'$name\' was not found.', f.path);
+        throw new FileSystemException('${_capitalize(type)} \'$name\' was not found.', f.path);
       }
     }
     

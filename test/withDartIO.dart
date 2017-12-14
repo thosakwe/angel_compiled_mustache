@@ -1,11 +1,12 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:angel_framework/angel_framework.dart';
 import 'package:angel_compiled_mustache/angel_compiled_mustache.dart';
+import 'package:file/file.dart';
+import 'package:file/local.dart';
 import 'package:test/test.dart';
 
-
-Directory viewsDir = new Directory('test/views');
+const FileSystem fs = const LocalFileSystem();
+Directory viewsDir = const LocalFileSystem().directory('test/views');
 
 
 Future main() async {
@@ -84,9 +85,9 @@ Future main() async {
           Angel angelProd = new Angel();
           await angelProd.configure(compiled_mustache(viewsDir, defaultLayout: 'raw'));
           
-          await (new File('$cachePath/before.mustache')).copy('$cachePath/cache.mustache');
+          await (fs.file('$cachePath/before.mustache')).copy('$cachePath/cache.mustache');
           var before = await angelProd.viewGenerator('caching/cache');
-          await (new File('$cachePath/after.mustache')).copy('$cachePath/cache.mustache');
+          await (fs.file('$cachePath/after.mustache')).copy('$cachePath/cache.mustache');
           var after = await angelProd.viewGenerator('caching/cache');
           
           expect(before, equals('Before'));
@@ -97,9 +98,9 @@ Future main() async {
         Angel angelDebug = new Angel();
         await angelDebug.configure(compiled_mustache(viewsDir, defaultLayout: 'raw'));
         
-        await (new File('$cachePath/before.mustache')).copy('$cachePath/cache.mustache');
+        await (fs.file('$cachePath/before.mustache')).copy('$cachePath/cache.mustache');
         var before = await angelDebug.viewGenerator('caching/cache');
-        await (new File('$cachePath/after.mustache')).copy('$cachePath/cache.mustache');
+        await (fs.file('$cachePath/after.mustache')).copy('$cachePath/cache.mustache');
         var after = await angelDebug.viewGenerator('caching/cache');
         
         expect(before, equals('Before'));
