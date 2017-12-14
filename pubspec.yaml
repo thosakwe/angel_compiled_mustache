@@ -9,7 +9,7 @@ dependencies:
   angel_framework: "^1.0.0-dev"
   compiled_mustache: "^1.0.1"
   path: "^1.5.0"
-  file: "^2.3.5"
+  file: "^2.0.0"
 dev_dependencies:
   test: "^0.12.13"
   grinder: "^0.8.0"
