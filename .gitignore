@@ -27,6 +27,7 @@ doc/api/
 pubspec.lock
 
 .idea
+*.iml
 
 # Deploy script results
 deploy_staging/
