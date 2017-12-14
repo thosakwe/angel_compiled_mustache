@@ -14,49 +14,49 @@ class _CacheController {
   _CacheController(this._fileExtension, this._layoutsDirectory, this._pagesDirectory, this._partialsDirectory, this._fileSystem);
   
   
-  Future<CompiledTemplate> get_layout(String name, Angel app) async {
-    return await _get_cached(name, app, 'layout');
+  Future<CompiledTemplate> getLayout(String name, Angel app) async {
+    return await _getCached(name, app, 'layout');
   }
-  Future<CompiledTemplate> get_page(String name, Angel app) async {
-    return await _get_cached(name, app, 'page');
+  Future<CompiledTemplate> getPage(String name, Angel app) async {
+    return await _getCached(name, app, 'page');
   }
-  Future<CompiledTemplate> get_partial(String name, Angel app) async {
-    return await _get_cached(name, app, 'partial', suppressError: true);
-  }
-  
-  CompiledTemplate get_partial_sync(String name, Angel app) {
-    return _get_cached_sync(name, app, 'partial', suppressError: true);
+  Future<CompiledTemplate> getPartial(String name, Angel app) async {
+    return await _getCached(name, app, 'partial', suppressError: true);
   }
   
+  CompiledTemplate getPartialSync(String name, Angel app) {
+    return _getCachedSync(name, app, 'partial', suppressError: true);
+  }
   
-  Future<CompiledTemplate> _get_cached(String name, Angel app, String type, {bool suppressError: false}) async {
+  
+  Future<CompiledTemplate> _getCached(String name, Angel app, String type, {bool suppressError: false}) async {
     if (app.isProduction) { // Production node, cache.
       CompiledTemplate ct = cache['$type/$name'];
       if (ct == null) {
-        ct = await _load_from_disk(type, name, suppressError);
+        ct = await _loadFromSink(type, name, suppressError);
         cache['$type/$name'] = ct;
       }
       return ct;
     } else { // Debug mode, always load from disk.
-      return await _load_from_disk(type, name, suppressError);
+      return await _loadFromSink(type, name, suppressError);
     }
   }
   
-  CompiledTemplate _get_cached_sync(String name, Angel app, String type, {bool suppressError: false}) {
+  CompiledTemplate _getCachedSync(String name, Angel app, String type, {bool suppressError: false}) {
     if (app.isProduction) { // Production node, cache.
       CompiledTemplate ct = cache['$type/$name'];
       if (ct == null) {
-        ct = _load_from_disk_sync(type, name, suppressError);
+        ct = _loadFromDiskSync(type, name, suppressError);
         cache['$type/$name'] = ct;
       }
       return ct;
     } else { // Debug mode, always load from disk.
-      return _load_from_disk_sync(type, name, suppressError);
+      return _loadFromDiskSync(type, name, suppressError);
     }
   }
   
   
-  Future<CompiledTemplate> _load_from_disk(String type, String name, bool suppressError) async {
+  Future<CompiledTemplate> _loadFromSink(String type, String name, bool suppressError) async {
     if (path.extension(name).isEmpty) {
       name += _fileExtension;
     }
@@ -80,7 +80,7 @@ class _CacheController {
   }
   
   
-  CompiledTemplate _load_from_disk_sync(String type, String name, bool suppressError) {
+  CompiledTemplate _loadFromDiskSync(String type, String name, bool suppressError) {
     if (path.extension(name).isEmpty) {
       name += _fileExtension;
     }
